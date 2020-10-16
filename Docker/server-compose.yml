@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  velociraptor:
+    image: velociraptor:latest
+    build:
+      context: .
+      args:
+        release_version: 0.5.0
+        binary_version: 0.5.0-1
+    container_name: velociraptor
+    hostname: velociraptor
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "443:443"
+    volumes:
+      - ../Data/config:/config
+      - ../Data/velociraptor:/opt/velociraptor
+      - ../Data/logs:/opt/velociraptor/logs
+    environment:
+      - URL=example.com # CHANGEME
+      - VELOCIRAPTOR_USER=velociraptor # CHANGEME
+      - VELOCIRAPTOR_PASS=changeme # CHANGEME
+    command: "/entrypoint.sh"

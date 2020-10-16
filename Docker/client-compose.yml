@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  velociraptorclient:
+    image: velociraptor:latest
+    build: .
+    container_name: velociraptor-client
+    hostname: velociraptor-client
+    restart: unless-stopped
+    volumes:
+      - ../Data/config:/config
+    command: "/velociraptor --config /config/client.config.yaml client -v"
